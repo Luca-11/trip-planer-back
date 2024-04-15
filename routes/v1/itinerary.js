@@ -47,18 +47,16 @@ router.get("/:id", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { prompt, iaResponse, created_at, updated_at } =
-    ItineraryValidator.parse(req.body);
+  const { prompt, iaResponse } = ItineraryValidator.parse(req.body);
 
   const itinerary = await prisma.itinerary.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       prompt,
       iaResponse,
-      created_at,
-      updated_at,
+      updated_at: new Date(),
     },
   });
 
