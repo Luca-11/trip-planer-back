@@ -43,4 +43,22 @@ router.get("/:id", async (req, res) => {
   res.json(itinerary);
 });
 
+router.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { prompt, iaResponse, datetime } = ItineraryValidator.parse(req.body);
+
+  const itinerary = await prisma.itinerary.update({
+    where: {
+      id: parseInt(id),
+    },
+    data: {
+      prompt,
+      iaResponse,
+      datetime,
+    },
+  });
+
+  res.json(itinerary);
+});
+
 export default router;
