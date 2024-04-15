@@ -8,13 +8,15 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 router.post("/", async (req, res) => {
-  const { prompt, iaResponse, datetime } = ItineraryValidator.parse(req.body);
+  const { prompt, iaResponse, created_at, updated_at } =
+    ItineraryValidator.parse(req.body);
 
   const itinerary = await prisma.itinerary.create({
     data: {
       prompt,
       iaResponse,
-      datetime,
+      created_at,
+      updated_at,
     },
   });
 
@@ -45,7 +47,8 @@ router.get("/:id", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { prompt, iaResponse, datetime } = ItineraryValidator.parse(req.body);
+  const { prompt, iaResponse, created_at, updated_at } =
+    ItineraryValidator.parse(req.body);
 
   const itinerary = await prisma.itinerary.update({
     where: {
@@ -54,7 +57,8 @@ router.patch("/:id", async (req, res) => {
     data: {
       prompt,
       iaResponse,
-      datetime,
+      created_at,
+      updated_at,
     },
   });
 
