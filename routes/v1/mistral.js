@@ -79,7 +79,7 @@ router.patch("/:id", async (req, res) => {
 
     const trip = await prisma.itinerary.update({
       where: {
-        id: parseInt(id),
+        id: id,
       },
       data: {
         prompt,
